@@ -1,0 +1,10 @@
+SELECT City_data.year, City_data.city, City_data.country, City_data.avg_temp, Global_data.avg_temp AS GAVG, 
+AVG(City_data.avg_temp) OVER (ORDER BY City_data.year ASC ROWS Between 2 PRECEDING AND CURRENT ROW) AS MA3,
+AVG(City_data.avg_temp) OVER (ORDER BY City_data.year ASC ROWS Between 9 PRECEDING AND CURRENT ROW) AS MA10,
+AVG(Global_data.avg_temp) OVER (ORDER BY Global_data.year ASC ROWS Between 2 PRECEDING AND CURRENT ROW) AS GMA3,
+AVG(Global_data.avg_temp) OVER (ORDER BY Global_data.year ASC ROWS Between 9 PRECEDING AND CURRENT ROW) AS GMA10
+FROM City_data LEFT JOIN Global_data ON City_data.year = Global_data.year
+WHERE City_data.year > 1749 
+AND City_data.city ='Alexandria' 
+AND City_data.country = 'United States'
+ORDER BY City_data.year;
